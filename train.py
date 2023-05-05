@@ -28,6 +28,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
 
 from model import GPTConfig, GPT
+import torchsummary
 
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
@@ -150,6 +151,8 @@ if init_from == 'scratch':
     model_args['vocab_size'] = meta_vocab_size if meta_vocab_size is not None else 50304
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
+    print("Model summary:")
+    print(torchsummary.summary(model))
 elif init_from == 'resume':
     print(f"Resuming training from {out_dir}")
     # resume training from a checkpoint.
@@ -163,6 +166,8 @@ elif init_from == 'resume':
     # create the model
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
+    print("Model summary:")
+    print(torchsummary.summary(model))
     state_dict = checkpoint['model']
     # fix the keys of the state dictionary :(
     # honestly no idea how checkpoints sometimes get this prefix, have to debug more
