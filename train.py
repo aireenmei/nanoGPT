@@ -152,7 +152,7 @@ if init_from == 'scratch':
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
     print("Model summary:")
-    print(torchsummary.summary(model))
+    print(torchsummary.summary(model,(block_size,))
 elif init_from == 'resume':
     print(f"Resuming training from {out_dir}")
     # resume training from a checkpoint.
@@ -167,7 +167,7 @@ elif init_from == 'resume':
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
     print("Model summary:")
-    print(torchsummary.summary(model))
+    print(torchsummary.summary(model,(block_size,)))
     state_dict = checkpoint['model']
     # fix the keys of the state dictionary :(
     # honestly no idea how checkpoints sometimes get this prefix, have to debug more
