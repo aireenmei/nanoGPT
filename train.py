@@ -152,7 +152,7 @@ if init_from == 'scratch':
     gptconf = GPTConfig(**model_args)
     model = GPT(gptconf)
     print("Model summary:")
-    print(torchsummary.summary(model,(block_size,))
+    print(torchsummary.summary(model,(block_size,)))
 elif init_from == 'resume':
     print(f"Resuming training from {out_dir}")
     # resume training from a checkpoint.
